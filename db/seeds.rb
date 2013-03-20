@@ -9,6 +9,6 @@ Emag.destroy_all
       title: t[1],
       author: a[1],
       description: "interesting animals",
-      user_id: rand(0..5)
+      user_id: rand(5)
 
 end
