@@ -4,7 +4,7 @@ class CreateEmags < ActiveRecord::Migration
       t.string :author
       t.string :title
       t.string :content
-      t.string :description
+      t.string :comment
 
       t.timestamps
     end
