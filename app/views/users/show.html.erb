@@ -1,0 +1,91 @@
+<p id="notice"><%= notice %></p>
+<h2>Profile for <%= @user.name %></h2>
+<h2>Artical Published: <%= @user.num %></h2>
+
+
+<h2>Published Details :</h2>
+<br>
+<table>
+	<thead>
+		<tr>
+			<th> Title </th>
+		    <th>Content</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+	   <% @user.emags.each do |e| %>
+		    <tr>
+			    <td width=100 height=100 align=center><%= e.title %></td>
+			    <td width=100 height=100 align=center><img src=<%= e.content %> height=100/></td>
+			    <td width=100 height=100 align=center><%= e.description %></td>
+			    <td width=100 height=100 align=center><%= link_to 'Edit', edit_emag_path(e) %></td>
+			    <td width=100 height=100 align=center><%= link_to 'Destroy', e, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+			</tr> 
+	   <% end %>
+    </tbody>
+</table>
+
+<%= link_to 'Create a new Emag',new_emag_url %>
+<%= link_to 'Edit', edit_user_path(@user) %>
+<%= link_to 'Back', users_path %>
+<h2>Emags You Have Ordered :</h2>
+<br></br>
+<table>
+	<thead>
+		<tr>
+           <th> Author </th>
+           <th> Title  </th>
+           <th> Description </th>
+           <th> Content </th>
+		</tr>
+	</thead>
+	<tbody>
+        
+        <% @orders=Order.where(:user_id => session[:user_id]) %>
+
+        <% @orders.each do |a| %>
+        <% @emags=Emag.where(:author => a.author) %>
+
+        <% @emags.each do |e| %>
+        <tr>
+           <td width=100 height=100 align=center><%= e.author %></td>
+           <td width=100 height=100 align=center><%= e.title %></td>
+           <td width=100 height=100 align=center><%= e.description %></td>
+           <td width=100 height=100 align=center><img src=<%= e.content %> height=100/></td>
+           <td width=100 height=100 align=center><%= link_to 'DisOrder', a, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+        <% end %>
+	</tbody>
+</table>
+<h2>Emags in Your Favorites List :</h2>
+<br></br>
+<table>
+	<thead>
+		<tr>
+           <th> Author </th>
+           <th> Title  </th>
+           <th> Description </th>
+           <th> Content </th>
+		</tr>
+	</thead>
+	<tbody>
+        
+        <% @favorites=Favorite.where(:user_id => session[:user_id]) %>
+
+        <% @favorites.each do |a| %>
+        <% @emags=Emag.where(:title => a.title) %>
+
+        <% @emags.each do |e| %>
+        <tr>
+           <td width=100 height=100 align=center><%= e.author %></td>
+           <td width=100 height=100 align=center><%= e.title %></td>
+           <td width=100 height=100 align=center><%= e.description %></td>
+           <td width=100 height=100 align=center><img src=<%= e.content %> height=100/></td>
+           <td width=100 height=100 align=center><%= link_to 'DisFavorite', a, method: :delete, data: {confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+        <% end %>
+	</tbody>
+</table>

@@ -1,0 +1,33 @@
+
+
+<div class="row">
+	<div class="span12">
+		<h1 class="page-header" >Welcome to Emags</h1>
+		<%= paginate @emags %>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Author</th>
+					<th> Title</th>
+					<th>Content</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+			   <% @emags.each do |e| %>
+			   <tr>
+			     <td width=100 height=100 align=center><%= e.author %></td>
+			     <td width=100 height=100 align=center><%= e.title %></td>
+			     <td width=200 height=200 align=center><img src=<%= e.content %> width=200 height=200/></td>
+			     <td width=100 height=100 align=center><%= e.description %></td>
+			      <% if session[:user_id] %>
+                     <td><%= link_to 'Show', emag_url(e) %> </td>
+                  <% else %>
+                     <td>Sign Up!</td>
+                  <% end %>
+			   </tr> 
+			   <% end %>
+           </tbody>
+        </table>
+    </div>
+</div>

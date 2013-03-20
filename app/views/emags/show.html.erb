@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+<p>
+	<b>Title :</b>
+	<%= @emag.title %>
+</p>
+<p>
+  <b>Author :</b>
+  <%= @emag.author %>
+</p>
+
+<p>
+    <b>Content :</b>
+
+    <img src="<%= @emag.content %>" width=50 height=50>
+</p>
+
+<p>
+    <b>Description :</b>
+    <%= @emag.description %>
+</p>
+<table>
+  <thead>	
+	<tr>
+		<th>Comment</th>
+		<th>Commented By</th>
+	</tr>
+  </thead>
+  <tbody>
+  	<% @comments=Comment.where(:emag_id => @emag.id) %>
+  	<% @comments.each do |c| %>
+  	<% @commenter=User.find(c.user_id) %>
+  	<tr>
+       <th width=600 height=100 align=center><%= c.comment %></th>
+        <th width=200 height=100 align=center><%= @commenter.name%></th>
+        <th width=200 height=100 align=center><%= link_to 'Destroy', c, method: :delete, data: {confirm: 'Are you sure?' } %></th>
+  	</tr>
+    <% end %>
+  </tbody>
+
+
+</table>
+
+
+<%= link_to 'Edit', edit_emag_path(@emag) %>
+<%= link_to 'Back', emags_path %>
+<%= link_to 'Comment',{:controller =>'comments', :action => 'new', :id => @emag.id }  %>
+
+<%= link_to 'Make an Order', {:controller =>'orders', :action => 'new', :author => @emag.author}  %>
+<%= link_to 'Make it as a Favorite', {:controller =>'favorites', :action => 'new', :title => @emag.title}  %>
